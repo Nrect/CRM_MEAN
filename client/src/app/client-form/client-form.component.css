@@ -1,0 +1,41 @@
+.header{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.form-Client {
+  display: flex;
+}
+
+.w100 {
+  width: 100%;
+}
+.displayNone{
+  display: none;
+}
+.left {
+  flex-basis: 50%;
+}
+
+.right {
+  display: flex;
+  direction: inherit;
+  justify-content: flex-end;
+  flex-basis: 50%;
+}
+.example-radio-group {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+}
+
+.example-radio-button {
+  margin: 5px;
+}
+
+.btn-container {
+  margin-top: 1rem;
+}
+.img{
+  height: 300px;
+}

@@ -1,0 +1,117 @@
+<div class="header">
+  <h1>{{newClient ? 'Добавить' : 'Редактировать'}} клиента</h1>
+  <button
+    *ngIf="!newClient"
+    class="btn btn-small red"
+    (click)="deleteClient()"
+    mat-raised-button color="warn">Удалить клиента
+    <mat-icon>delete_forever</mat-icon>
+  </button>
+</div>
+
+<div class="form-Client">
+  <div class="left">
+    <form [formGroup]="form"
+          (ngSubmit)="onSubmit()">
+      <mat-form-field class="example-full-width w100">
+        <mat-label>ФИО</mat-label>
+        <input matInput placeholder="ФИО..." formControlName="name">
+        <mat-error *ngIf="form.get('name').hasError('required')">
+          Обязательное поле!
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width w100">
+        <mat-label>Возраст</mat-label>
+        <input matInput placeholder="Возраст..." formControlName="age">
+        <mat-error *ngIf="form.get('age').hasError('min') ||
+        form.get('age').hasError('required') || form.get('age').hasError('max')">
+          Неверный возраст. Клиент должен быть старше <strong>18 лет.</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width w100">
+        <mat-label>Язык</mat-label>
+        <input matInput placeholder="Язык..." formControlName="language">
+        <mat-error *ngIf="form.get('language').hasError('required')">
+          Обязательное поле!
+        </mat-error>
+      </mat-form-field>
+
+      <label id="example-radio-group-label">Семейное положение</label>
+      <mat-radio-group
+        aria-labelledby="example-radio-group-label"
+        class="example-radio-group"
+        [(ngModel)]="favoriteSeason" formControlName="married">
+        <mat-radio-button class="example-radio-button" *ngFor="let season of seasons" [value]="season">
+          {{season}}
+        </mat-radio-button>
+      </mat-radio-group>
+
+
+      <mat-form-field class="example-full-width w100" *ngIf="favoriteSeason==='Замужем/Женат'">
+        <mat-label>ФИО партнера</mat-label>
+        <input matInput placeholder="ФИО партнера..." formControlName="partner">
+      </mat-form-field>
+      <mat-form-field class="example-full-width w100">
+        <mat-label>Номер телефона</mat-label>
+        <input matInput placeholder="Номер телефона..." formControlName="phone">
+        <mat-error *ngIf="form.get('phone').hasError('required')">
+          Обязательное поле!
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width w100">
+        <mat-label>Адрес</mat-label>
+        <input matInput placeholder="Адрес..." formControlName="address">
+        <mat-error *ngIf="form.get('address').hasError('required')">
+          Обязательное поле!
+        </mat-error>
+      </mat-form-field>
+
+      <label id="example-radio-group-label1">Дети</label>
+      <mat-radio-group
+        aria-labelledby="example-radio-group-label1"
+        class="example-radio-group"
+        [(ngModel)]="favoriteSeason1" formControlName="haveChildren">
+        <mat-radio-button class="example-radio-button" *ngFor="let season of seasons1" [value]="season">
+          {{season}}
+        </mat-radio-button>
+      </mat-radio-group>
+
+
+      <mat-form-field class="example-full-width w100" *ngIf="favoriteSeason1==='Есть'">
+        <mat-label>Список детей</mat-label>
+        <input matInput placeholder="Дети..." formControlName="listChild">
+      </mat-form-field>
+
+      <input type="file"
+             class="displayNone" (change)="onFileLoad($event)"
+             #inputFile>
+      <div class="btn-container">
+        <button
+          (click)="triggerClick()"
+          type="button"
+          mat-raised-button color="primary">Загрузить изображение
+          <mat-icon>cloud_upload</mat-icon>
+        </button>
+      </div>
+
+      <div class="btn-container">
+        <button
+          type="submit"
+          [disabled]="form.invalid || form.disabled"
+          mat-raised-button color="accent">Сохранить
+        </button>
+      </div>
+    </form>
+
+  </div>
+  <div class="right">
+    <img
+      [src]="imagePreview"
+      class="img" alt="">
+    <div>
+    </div>
+  </div>
+</div>
+
+
+

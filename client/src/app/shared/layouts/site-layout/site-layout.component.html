@@ -1,0 +1,42 @@
+<mat-drawer-container class="example-container" autosize>
+  <mat-drawer #drawer class="example-sidenav" mode="side">
+    <div class="navContainer">
+      <h1>Управление</h1>
+      <mat-divider style="margin-bottom: 1rem"></mat-divider>
+
+      <div class="link-container">
+        <a type="button" routerLink="/clients" routerLinkActive="linkActive"
+           [routerLinkActiveOptions]="{exact:true}"
+           class="link">Просмотр клиентов</a>
+        <a type="button" routerLink="/clients/new"
+           [routerLinkActiveOptions]="{exact:true}"
+           routerLinkActive="linkActive"
+           class="link">Добавить клиента</a>
+      </div>
+    </div>
+  </mat-drawer>
+
+  <div class="sidenav-content">
+    <!--toolbar-->
+    <mat-toolbar color="primary">
+      <div class="container navbar">
+        <button type="button" mat-button (click)="drawer.toggle();showNav = !showNav">
+          <mat-icon *ngIf="showNav">close</mat-icon>
+          <mat-icon *ngIf="!showNav">menu</mat-icon>
+        </button>
+        <h1>CRM система</h1>
+        <button
+          (click)="logout($event)"
+          type="button" mat-button>
+          Выход
+        </button>
+      </div>
+    </mat-toolbar>
+    <!--toolbar-->
+
+    <div class="container">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
+</mat-drawer-container>

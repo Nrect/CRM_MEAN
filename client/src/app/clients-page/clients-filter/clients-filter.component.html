@@ -1,0 +1,37 @@
+<form>
+  <mat-form-field class="example-full-width w100">
+    <mat-label>По номеру досье</mat-label>
+    <input min="1" [(ngModel)]="dossierNumber"
+           [ngModelOptions]="{ standalone: true }" matInput
+           [disabled]="reloading"
+           placeholder="Номер досье...">
+  </mat-form-field>
+
+<!--  <mat-form-field class="example-full-width w45">-->
+<!--    <mat-label>Начало</mat-label>-->
+<!--    <input min="1" [(ngModel)]="start"-->
+<!--           [ngModelOptions]="{ standalone: true }" matInput-->
+<!--           [disabled]="reloading"-->
+<!--           placeholder="Номер досье...">-->
+<!--  </mat-form-field>-->
+<!--  <mat-form-field class="example-full-width w45" style="margin-left: 10%">-->
+<!--    <mat-label>Конец</mat-label>-->
+<!--    <input min="1" [(ngModel)]="end"-->
+<!--           [ngModelOptions]="{ standalone: true }" matInput-->
+<!--           [disabled]="reloading"-->
+<!--           placeholder="Номер досье...">-->
+<!--  </mat-form-field>-->
+
+  <mat-form-field class="example-full-width w100">
+    <mat-label>По ФИО</mat-label>
+    <input [(ngModel)]="name" [ngModelOptions]="{ standalone: true }"
+           [disabled]="reloading"
+           matInput placeholder="ФИО...">
+  </mat-form-field>
+  <button
+    (click)="submitFilter()"
+    [disabled]="!isValid || reloading"
+    type="button" mat-raised-button color="accent"
+    class="btn">Применить
+  </button>
+</form>

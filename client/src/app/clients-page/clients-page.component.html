@@ -1,0 +1,89 @@
+<div class="page-title">
+  <h1 style="margin: 0">Клиенты</h1>
+</div>
+<div class="container" *ngIf="clients; else loader">
+
+  <mat-form-field style="padding-left: .5rem" class="example-full-width w45">
+    <mat-label>По ФИО</mat-label>
+    <input [(ngModel)]="searchString"
+           [disabled]="reloading"
+           matInput placeholder="ФИО...">
+    <mat-icon matSuffix style="padding-right: .5rem">search</mat-icon>
+  </mat-form-field>
+
+  <div class="btn-container-head">
+    <button
+      [ngClass]="{
+    'active':isFilterVisible,
+    'red': isFiltered()
+    }"
+      type="button" (click)="showFiller = !showFiller"
+      mat-raised-button class="filter-btn"
+      [disabled]="reloading">Фильтр
+      <mat-icon>filter_list</mat-icon>
+    </button>
+
+    <button
+      type="button"
+      mat-raised-button
+      class="export-button filter-btn"
+      (click)="export()">Экспорт в excel
+      <mat-icon> table_chart</mat-icon>
+    </button>
+  </div>
+
+  <div class="navContainer" *ngIf="showFiller">
+    <!-- filter-->
+    <app-clients-filter (onFilter)="applyFilter($event)" [reloading]="reloading"
+    ></app-clients-filter>
+  </div>
+
+  <div *ngIf="!reloading; else reloadBlock">
+    <div *ngIf="clients.length !==0;else empty">
+      <!--card-container-->
+      <div class="card-container">
+        <!--card-->
+        <div class="card" *ngFor="let client of clients | nameFilter:searchString">
+          <mat-card class="example-card">
+            <img mat-card-image [src]="client.imageSrc"
+                 alt="Photo" class="imgClient">
+            <mat-card-content style="font-size: 1.1rem">
+              <p>ФИО: <span style="font-weight: bold;">{{client.name}}</span></p>
+              <p>Номер досье: <span style="font-weight: bold">{{client.dossierNumber}}</span></p>
+            </mat-card-content>
+            <mat-card-actions>
+              <div class="btn-container">
+                <button mat-raised-button [routerLink]="['/clients',client._id]"
+                        style="font-size: 1.1rem;margin-bottom: 1px" color="primary" class="w100">
+                  Просмотреть информацию
+                  <mat-icon>remove_red_eye</mat-icon>
+                </button>
+              </div>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+        <!--card-->
+        <!--card-container-->
+      </div>
+      <div class="more-btn" *ngIf="!noMoreClients">
+        <button
+          (click)="loadMore()"
+          *ngIf="!loading;else loader"
+          mat-raised-button color="accent">Загрузить еще
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #loader>
+  <mat-spinner></mat-spinner>
+</ng-template>
+<ng-template #reloadBlock>
+  <mat-spinner></mat-spinner>
+</ng-template>
+
+
+<ng-template #empty>
+  <h2><strong>Сейчас у вас нет клиентов.</strong></h2>
+</ng-template>

@@ -1,0 +1,10 @@
+.mat-list span{
+  font-weight: bold;
+}
+.photo-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 300px;
+  margin-bottom: .5rem;
+}
